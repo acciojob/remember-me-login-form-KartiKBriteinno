@@ -1,26 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
-    const rememberMeCheckbox = document.getElementById('checkbox');
-    const existingUserButton = document.getElementById('existing');
+    const checkbox = document.getElementById('checkbox');
+    const loginForm = document.getElementById('loginForm');
+    const existingButton = document.getElementById('existing');
 
-    // Check if there are saved details in local storage
+    // Check if there are saved credentials in local storage
     const savedUsername = localStorage.getItem('username');
     const savedPassword = localStorage.getItem('password');
 
     if (savedUsername && savedPassword) {
-        existingUserButton.style.display = 'block';
+        existingButton.style.display = 'block';
     }
 
-    // Handle form submission
-    loginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
         const username = usernameInput.value;
         const password = passwordInput.value;
 
-        if (rememberMeCheckbox.checked) {
+        if (checkbox.checked) {
             localStorage.setItem('username', username);
             localStorage.setItem('password', password);
         } else {
@@ -31,10 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(`Logged in as ${username}`);
     });
 
-    // Handle existing user login
-    existingUserButton.addEventListener('click', () => {
-        if (savedUsername) {
-            alert(`Logged in as ${savedUsername}`);
-        }
+    existingButton.addEventListener('click', () => {
+        alert(`Logged in as ${savedUsername}`);
     });
 });
