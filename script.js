@@ -1,31 +1,41 @@
 //your JS code here. If required.
-
-let nameInput = document.getElementById('username');
-let passwordInput = document.getElementById("password");
-let checkInput = document.getElementById("checkbox");
-let sbutton = document.getElementById("submit");
-var name;
-var password;
-var check;
-
-nameInput.addEventListener('input', () => {
-    name = nameInput.value;
-    // console.log(name)
+let checkbox = document.getElementById("checkbox");
+let form = document.getElementById("form");
+checkbox.addEventListener('click',()=>{
+		if(!checkbox.checked){
+		// alert(checkbox.checked);
+		localStorage.removeItem("password");
+		localStorage.removeItem("username");
+		document.getElementById("existing").style.display = "none";
+	}	
 });
 
-passwordInput.addEventListener('input', () => {
-    password = passwordInput.value;
-});
 
-checkInput.addEventListener("input", () => {
-      check = checkInput.checked;
-      // console.log('check');
-});
 
-sbutton.addEventListener('click', () => {
-    if(check){
-      localStorage.setItem('username',name);
-      localStorage.setItem('password',password);
-    }
-    alert(`Logged in as ${name}`);
-});
+document.getElementById("submit").addEventListener('click',myFunc);
+document.getElementById("existing").addEventListener('click',exisFunc);
+if(localStorage.getItem("username") && localStorage.getItem("password")){
+	// document.getElementById("form").style.display = "none";
+	document.getElementById("existing").style.display = "block";
+}
+
+function exisFunc(){
+	let name = JSON.parse(localStorage.getItem("username"));
+	alert(`Logged in as ${name}`);
+}
+
+function myFunc(e){
+	e.preventDefault();
+	let username = document.getElementById("username").value;
+	let pass = document.getElementById("password").value;
+	if(checkbox.checked){
+		localStorage.setItem("username",JSON.stringify(username));
+		localStorage.setItem("password",JSON.stringify(pass));
+		document.getElementById("existing").style.display = "block";
+		
+	}else{
+		alert(`Logged in as ${username}`);
+		document.getElementById("existing").style.display = "none";
+	}
+	
+}
