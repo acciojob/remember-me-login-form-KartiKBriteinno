@@ -1,36 +1,31 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-    const checkbox = document.getElementById('checkbox');
-    const loginForm = document.getElementById('loginForm');
-    const existingButton = document.getElementById('existing');
+//your JS code here. If required.
 
-    // Check if there are saved credentials in local storage
-    const savedUsername = localStorage.getItem('username');
-    const savedPassword = localStorage.getItem('password');
+let nameInput = document.getElementById('username');
+let passwordInput = document.getElementById("password");
+let checkInput = document.getElementById("checkbox");
+let sbutton = document.getElementById("submit");
+var name;
+var password;
+var check;
 
-    if (savedUsername && savedPassword) {
-        existingButton.style.display = 'block';
+nameInput.addEventListener('input', () => {
+    name = nameInput.value;
+    // console.log(name)
+});
+
+passwordInput.addEventListener('input', () => {
+    password = passwordInput.value;
+});
+
+checkInput.addEventListener("input", () => {
+      check = checkInput.checked;
+      // console.log('check');
+});
+
+sbutton.addEventListener('click', () => {
+    if(check){
+      localStorage.setItem('username',name);
+      localStorage.setItem('password',password);
     }
-
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const username = usernameInput.value;
-        const password = passwordInput.value;
-
-        if (checkbox.checked) {
-            localStorage.setItem('username', username);
-            localStorage.setItem('password', password);
-        } else {
-            localStorage.removeItem('username');
-            localStorage.removeItem('password');
-        }
-
-        alert(`Logged in as ${username}`);
-    });
-
-    existingButton.addEventListener('click', () => {
-        alert(`Logged in as ${savedUsername}`);
-    });
+    alert(`Logged in as ${name}`);
 });
