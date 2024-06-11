@@ -1,41 +1,22 @@
 //your JS code here. If required.
-let checkbox = document.getElementById("checkbox");
-let form = document.getElementById("form");
-checkbox.addEventListener('click',()=>{
-		if(!checkbox.checked){
-		// alert(checkbox.checked);
-		localStorage.removeItem("password");
-		localStorage.removeItem("username");
-		document.getElementById("existing").style.display = "none";
-	}	
-});
+let formEle = document.querySelector("form");
+let userList = [];
+formEle.addEventListener("submit", submitForm);
 
-
-
-document.getElementById("submit").addEventListener('click',myFunc);
-document.getElementById("existing").addEventListener('click',exisFunc);
-if(localStorage.getItem("username") && localStorage.getItem("password")){
-	// document.getElementById("form").style.display = "none";
-	document.getElementById("existing").style.display = "block";
-}
-
-function exisFunc(){
-	let name = JSON.parse(localStorage.getItem("username"));
-	alert(`Logged in as ${name}`);
-}
-
-function myFunc(e){
+function submitForm(e){
 	e.preventDefault();
-	let username = document.getElementById("username").value;
-	let pass = document.getElementById("password").value;
-	if(checkbox.checked){
-		localStorage.setItem("username",JSON.stringify(username));
-		localStorage.setItem("password",JSON.stringify(pass));
-		document.getElementById("existing").style.display = "block";
-		
-	}else{
-		alert(`Logged in as ${username}`);
-		document.getElementById("existing").style.display = "none";
+	 
+	let checkEle = document.getElementById("checkbox").checked;
+	let userName = document.getElementById("username").value;
+	let passWord = document.getElementById("password").value;
+	let userObj = {
+		username: userName,
+		password: passWord
+	};
+	if(checkEle){
+		userList.push(userObj);
+		localStorage.setItem("usersData", JSON.stringify(userList));
 	}
-	
+	alert( `Logged in as ${userName}`);
+	formEle.reset();
 }
